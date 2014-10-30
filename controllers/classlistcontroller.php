@@ -14,6 +14,17 @@ class classlistcontroller
 		if(!auth::isloggedin()){
 			header("location: mediaedit.php?action=index");
 		}
+		
+		
+		if(!empty($_GET['box']) && !empty($_GET['path'])){
+			$path = __mediafiles__."\\".$_GET['course']."\\mediaRSS.xml";
+			$r = new editfile($path);
+			//foreach($_GET['box'] as $box)
+			//{
+			$r->remove($_GET['box']);
+			//}
+		}
+		
 		if(!empty($_GET['course'])){
 			$path = __mediafiles__."\\".$_GET['course']."\\mediaRSS.xml";
 			if(file_exists($path)){
@@ -24,16 +35,6 @@ class classlistcontroller
 				}
 			}
 		}
-		
-		if(!empty($_GET['box']) && !empty($_GET['path'])){
-			$path = __mediafiles__."\\".$_GET['course']."\\mediaRSS.xml";
-			$r = new editfile($path);
-			//foreach($_GET['box'] as $box)
-			//{
-				$r->remove($_GET['box']);
-			//}
-		}
-		
 		
 		global $smarty;
 		$smarty->assign("dates", $date);
